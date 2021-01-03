@@ -1,0 +1,139 @@
+<div class="container">
+
+
+  <form [formGroup]="couponForm" (ngSubmit)="saveCoupon()">
+    <div class="row d-block">
+      <mat-form-field class="d-block">
+        <mat-label>Coupon Type *</mat-label>
+        <mat-select formControlName="coupon_type">
+          <mat-option value="user">User</mat-option>
+          <mat-option value="type1">Type 1</mat-option>
+          <mat-option value="type2">Type 2</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="row d-block">
+      <mat-form-field class="d-block">
+        <mat-label>Coupon Code *</mat-label>
+        <input matInput formControlName="coupon_code" oninput="this.value = this.value.toUpperCase()"
+          (keydown.space)="$event.preventDefault()" maxlength="20">
+      </mat-form-field>
+    </div>
+
+    <div class="row d-block">
+      <mat-form-field class="d-block">
+        <mat-label>Start Date *</mat-label>
+        <input matInput formControlName="valid_from" [min]="startMinDate" #ref1 [max]="maxDate"
+          [matDatepicker]="picker1" (dateInput)="setMinDate(ref1.value)" (click)="picker1.open()" readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+
+    <div class="row d-block">
+      <mat-form-field class="d-block">
+        <mat-label>End Date *</mat-label>
+        <input matInput formControlName="valid_to" #ref2 (dateInput)="setMaxDate(ref2.value)" [min]="minDate"
+          [matDatepicker]="picker2" (click)="picker2.open()" readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2 color="primary"></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="row d-block">
+      <mat-form-field class="d-block">
+        <mat-label>Coupon Availability *</mat-label>
+        <mat-select formControlName="is_unlimited">
+          <mat-option value="limited">Limited</mat-option>
+          <mat-option value="unlimited">Unlimited</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="row d-block" *ngIf="f.is_unlimited.value == 'limited'">
+      <mat-form-field class="d-block">
+        <mat-label>Coupon Count *</mat-label>
+        <input type="number" formControlName="coupon_count" min=1 matInput>
+      </mat-form-field>
+    </div>
+
+    <div class="row d-block">
+      <mat-form-field class="d-block">
+        <mat-label>Coupon Status *</mat-label>
+        <mat-select formControlName="is_active">
+          <mat-option value=true>Active</mat-option>
+          <mat-option value=false>Inactive</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="row d-block editor" >
+      <ngx-editor formControlName="tnc"></ngx-editor>
+    </div>
+
+    <div class="row mt-3">
+      <h2>Coupon Rules</h2>
+    </div>
+    <div formArrayName="rules">
+      <div *ngFor="let item of allRules.controls;let i=index" [formGroupName]="i">
+        <div class="row header mb-4">
+          <div class="col-md-10">
+            <h2>Rule {{i+1}} </h2>
+          </div>
+
+          <div class="col-md-2">
+            <p class="delete-rule cursor" *ngIf="i>0" (click)="deleteRule(i)">Delete Rule</p>
+          </div>
+        </div>
+
+        <div class="row d-block">
+          <mat-form-field class="d-block">
+            <mat-label>Min Amount *</mat-label>
+            <input matInput type="number" min="0" formControlName="min_amount" maxlength="10">
+          </mat-form-field>
+        </div>
+        <div class="row d-block">
+          <mat-form-field class="d-block">
+            <mat-label>Max Amount</mat-label>
+            <input matInput type="number" min="0" formControlName="max_amount" maxlength="10">
+          </mat-form-field>
+        </div>
+        <div class="row d-block">
+          <mat-form-field class="d-block">
+            <mat-label>Discount Type *</mat-label>
+            <mat-select formControlName="discount_type">
+              <mat-option value="percentage">Percentage</mat-option>
+              <mat-option value="flat">Flat</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="row d-block">
+          <mat-form-field class="d-block">
+            <mat-label>Discount *</mat-label>
+            <input matInput type="number" min="0" formControlName="discount" maxlength="10">
+          </mat-form-field>
+        </div>
+        <div class="row d-block">
+          <mat-form-field class="d-block">
+            <mat-label>Max Discount</mat-label>
+            <input matInput type="number" min="0" formControlName="max_discount" maxlength="10">
+          </mat-form-field>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="row add-more">
+      <h3 class="add-txt" (click)="addRule()">Add More</h3>
+    </div>
+
+    <div class="row">
+      <button class="save-btn" type="submit">Save</button>
+    </div>
+
+  </form>
+
+
+</div>

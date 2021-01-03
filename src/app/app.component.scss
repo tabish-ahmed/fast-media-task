@@ -1,0 +1,50 @@
+form {
+  width: 800px;
+  margin: 0 auto;
+  padding: 100px;
+
+}
+
+.header {
+  background: #e4e9fd;
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 5px 5px 0px 5px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.add-more {
+  float: right;
+}
+
+.add-txt {
+  color: #96bad9;
+  cursor: pointer;
+}
+
+.save-btn {
+  color: #ffffff;
+  background-color: #2a2777;
+  border-radius: 15px;
+  width: 80px;
+  margin-top: 30px;
+  padding: 5px;
+}
+
+.delete-rule {
+  color: rgba(255, 60, 0, 0.87);
+  cursor: pointer;
+}
+
+.editor{
+  border-top: 6px solid;
+}
